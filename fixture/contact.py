@@ -53,7 +53,7 @@ class ContactHelper:
         wd.find_element_by_name("middlename").send_keys("_edited")
         wd.find_element_by_name("lastname").click()
         wd.find_element_by_name("lastname").send_keys("_edited")
-        # submit edition
+        # submit edit
         wd.find_element_by_name("update").click()
         # return to home page
         self.return_to_home_page()
