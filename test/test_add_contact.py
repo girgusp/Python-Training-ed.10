@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import pytest
-from contact import Contact
+from model.contact import Contact
 from fixture.application import Application
 
 
@@ -12,12 +12,12 @@ def app(request):
 
 
 def test_add_contact(app):
-    app.login(username="admin", password="secret")
-    app.create_contact(Contact(first_name="FN", middle_name="MN", last_name="LN"))
-    app.logout()
+    app.session.login(username="admin", password="secret")
+    app.contact.create(Contact(first_name="FN", middle_name="MN", last_name="LN"))
+    app.session.logout()
 
 
 def test_add_empty_contact(app):
-    app.login(username="admin", password="secret")
-    app.create_contact(Contact(first_name="", middle_name="", last_name=""))
-    app.logout()
+    app.session.login(username="admin", password="secret")
+    app.contact.create(Contact(first_name="", middle_name="", last_name=""))
+    app.session.logout()
