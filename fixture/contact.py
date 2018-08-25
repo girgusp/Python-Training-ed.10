@@ -5,7 +5,7 @@ class ContactHelper:
 
     def return_to_home_page(self):
         wd = self.app.wd
-        wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
+        wd.find_element_by_link_text("home").click()
 
     def create(self, contact):
         wd = self.app.wd
@@ -40,4 +40,20 @@ class ContactHelper:
         wd.find_element_by_css_selector("[value=Delete]").click()
         wd.switch_to_alert().accept()
 
-
+    def edit_first_contact(self):
+        wd = self.app.wd
+        # select first contact
+        wd.find_element_by_name("selected[]").click()
+        # open contact to edit
+        wd.find_element_by_css_selector('[title="Edit"]').click()
+        # edit fields
+        wd.find_element_by_name("firstname").click()
+        wd.find_element_by_name("firstname").send_keys("_edited")
+        wd.find_element_by_name("middlename").click()
+        wd.find_element_by_name("middlename").send_keys("_edited")
+        wd.find_element_by_name("lastname").click()
+        wd.find_element_by_name("lastname").send_keys("_edited")
+        # submit edition
+        wd.find_element_by_name("update").click()
+        # return to home page
+        self.return_to_home_page()
