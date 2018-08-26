@@ -39,8 +39,8 @@ class ContactHelper:
         # submit deletion
         wd.find_element_by_css_selector("[value=Delete]").click()
         wd.switch_to_alert().accept()
-
-    def edit_first_contact(self):
+    '''
+    def modify(self):
         wd = self.app.wd
         # select first contact
         wd.find_element_by_name("selected[]").click()
@@ -57,3 +57,4 @@ class ContactHelper:
         wd.find_element_by_name("update").click()
         # return to home page
         self.return_to_home_page()
+    '''

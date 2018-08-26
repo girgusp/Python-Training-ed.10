@@ -1,4 +1,4 @@
-def test_edit_contact(app):
+def test_modify_contact(app):
     app.session.login(username="admin", password="secret")
-    app.contact.edit_first_contact()
+    app.contact.modify()
     app.session.logout()
