@@ -11,22 +11,24 @@ class ContactHelper:
         wd = self.app.wd
         # open contacts page
         self.open_contacts_page()
-        # fill contact form
-        wd.find_element_by_name("firstname").click()
-        wd.find_element_by_name("firstname").clear()
-        wd.find_element_by_name("firstname").send_keys(contact.first_name)
-        wd.find_element_by_name("theform").click()
-        wd.find_element_by_name("middlename").click()
-        wd.find_element_by_name("middlename").clear()
-        wd.find_element_by_name("middlename").send_keys(contact.middle_name)
-        wd.find_element_by_name("theform").click()
-        wd.find_element_by_name("lastname").click()
-        wd.find_element_by_name("lastname").clear()
-        wd.find_element_by_name("lastname").send_keys(contact.last_name)
+        self.fill_contact_form(contact)
         # submit contact creation
         wd.find_element_by_name("theform").click()
         # return to home page
         self.return_to_home_page()
+
+    def fill_contact_form(self, contact):
+        wd = self.app.wd
+        self.change_field_value("firstname", contact.first_name)
+        self.change_field_value("middlename", contact.middle_name)
+        self.change_field_value("lastname", contact.last_name)
+
+    def change_field_value(self, field_name, text):
+        wd = self.app.wd
+        if text is not None:
+            wd.find_element_by_name(field_name).click()
+            wd.find_element_by_name(field_name).clear()
+            wd.find_element_by_name(field_name).send_keys(text)
 
     def open_contacts_page(self):
         wd = self.app.wd
@@ -34,13 +36,16 @@ class ContactHelper:
 
     def delete_first_contact(self):
         wd = self.app.wd
-        # select first contact
-        wd.find_element_by_name("selected[]").click()
+        self.select_first_contact()
         # submit deletion
         wd.find_element_by_css_selector("[value=Delete]").click()
         wd.switch_to_alert().accept()
 
-    def modify(self):
+    def select_first_contact(self):
+        wd = self.app.wd
+        wd.find_element_by_name("selected[]").click()
+
+    '''def modify(self):
         wd = self.app.wd
         # select first contact
         wd.find_element_by_name("selected[]").click()
@@ -56,5 +61,19 @@ class ContactHelper:
         # submit edit
         wd.find_element_by_name("update").click()
         # return to home page
+        self.return_to_home_page()'''
+
+    def modify_first_contact(self, new_contact_data):
+        wd = self.app.wd
+        wd.find_element_by_link_text("add new").click()
+        self.select_first_contact()
+        # open modification form
+        wd.find_element_by_css_selector('[title="Edit"]').click()
+        # fill contact form
+        self.fill_contact_form(new_contact_data)
+        # submit modification
+        wd.find_element_by_name("update").click()
         self.return_to_home_page()
+
+
 
