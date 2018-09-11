@@ -65,7 +65,6 @@ class ContactHelper:
 
     def modify_first_contact(self, new_contact_data):
         wd = self.app.wd
-        wd.find_element_by_link_text("add new").click()
         self.select_first_contact()
         # open modification form
         wd.find_element_by_css_selector('[title="Edit"]').click()
