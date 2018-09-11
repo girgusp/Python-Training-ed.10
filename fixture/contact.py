@@ -13,6 +13,7 @@ class ContactHelper:
 
     def create(self, contact):
         wd = self.app.wd
+        self.open_home_page()
         # open contacts page
         self.open_contacts_page()
         self.fill_contact_form(contact)
