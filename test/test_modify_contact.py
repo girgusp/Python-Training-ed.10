@@ -2,9 +2,27 @@ from model.contact import Contact
 
 
 def test_modify_contact_first_name(app):
-    app.contact.modify_first_contact(Contact(first_name="New first name"))
+    if app.contact.count() == 0:
+        app.contact.modify_first_contact(Contact(first_name="New first name"))
+    old_contacts = app.contact.get_contact_list()
+    contact = Contact(first_name="New FN")
+    contact.id = old_contacts[0].id
+    app.contact.modify_first_contact(contact)
+    new_contacts = app.contact.get_contact_list()
+    assert len(old_contacts) == len(new_contacts)
+    old_contacts[0] = contact
+    assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
 
 
-def test_modify_contact_last_name(app):
-    app.contact.modify_first_contact(Contact(last_name="New last name"))
+'''def test_modify_contact_last_name(app):
+    if app.contact.count() == 0:
+        app.contact.modify_first_contact(Contact(last_name="New last name"))
+    old_contacts = app.contact.get_contact_list()
+    contact = Contact(last_name="New LN")
+    contact.id = old_contacts[0].id
+    app.contact.modify_first_contact(contact)
+    new_contacts = app.contact.get_contact_list()
+    assert len(old_contacts) == len(new_contacts)
+    old_contacts[0] = contact
+    assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)'''
 
