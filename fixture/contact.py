@@ -21,7 +21,8 @@ class ContactHelper:
         self.open_contacts_page()
         self.fill_contact_form(contact)
         # submit contact creation
-        wd.find_element_by_name("theform").click()
+        # [z jakiegoś powodu to przestało działać] wd.find_element_by_name("theform").click()
+        wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
         # return to home page
         self.return_to_home_page()
 
