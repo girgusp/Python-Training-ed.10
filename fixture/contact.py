@@ -116,6 +116,6 @@ class ContactHelper:
                 text = element.text
                 id = element.find_element_by_name("selected[]").get_attribute("value")
                 self.contact_cache.append(Contact(first_name=text, id=id))
-        return list(self.contact_cache)
+        return list(self.contact_cache) 
 
 
