@@ -63,6 +63,8 @@ class ContactHelper:
     def select_contact_by_index(self, index):
         wd = self.app.wd
         wd.find_elements_by_name("selected[]")[index].click()
+        # open modification form
+        wd.find_element_by_css_selector('[title="Edit"]').click()
 
     def select_first_contact(self):
         wd = self.app.wd
@@ -108,14 +110,15 @@ class ContactHelper:
 
     def get_contact_list(self):
         if self.contact_cache is None:
-
             wd = self.app.wd
-            self.open_home_page()
+            self.app.open_home_page()
             self.contact_cache = []
-            for element in wd.find_elements_by_name("entry"):
-                text = element.text
-                id = element.find_element_by_name("selected[]").get_attribute("value")
-                self.contact_cache.append(Contact(first_name=text, id=id))
+            for row in wd.find_elements_by_name("entry"):
+                cells = row.find_elements_by_tag_name("td")
+                firstname = cells[1].text
+                lastname = cells[2].text
+                id = cells[0].find_element_by_tag_name("input").get_attribute("value")
+                self.contact_cache.append(Contact(first_name=firstname, last_name=lastname, id=id))
         return list(self.contact_cache)
 
 
