@@ -120,7 +120,7 @@ class ContactHelper:
                 lastname = cells[2].text
                 id = cells[0].find_element_by_tag_name("input").get_attribute("value")
                 all_phones = cells[5].text
-                self.contact_cache.append(Contact(first_name=firstname, last_name=lastname, id=id,
+                self.contact_cache.append(Contact(first_name=firstname, last_name=lastname, id=str(id),
                                                   all_phones_from_home_page=all_phones))
 
 
@@ -150,7 +150,7 @@ class ContactHelper:
         workphone = wd.find_element_by_name("work").get_attribute("value")
         mobilephone = wd.find_element_by_name("mobile").get_attribute("value")
         secondaryphone = wd.find_element_by_name("phone2").get_attribute("value")
-        return Contact(first_name=first_name, last_name=last_name, id=id, homephone=homephone, mobilephone=mobilephone,
+        return Contact(first_name=first_name, last_name=last_name, id=str(id), homephone=homephone, mobilephone=mobilephone,
                        workphone=workphone, secondaryphone=secondaryphone)
 
     def get_contact_from_view_page(self, index):
