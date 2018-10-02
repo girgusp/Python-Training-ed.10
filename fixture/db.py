@@ -10,8 +10,8 @@ class DbFixture:
         self.name = name
         self.user = user
         self.password = password
-        self.connection = mysql.connector.connect(host=host, database=name, user=user, password=password,
-                                                  autocommit=True)
+        self.connection = mysql.connector.connect(host=host, database=name, user=user, password=password,)
+        self.connection.autocommit = True
 
     def get_group_list(self):
         list = []
@@ -29,11 +29,10 @@ class DbFixture:
         list = []
         cursor = self.connection.cursor()
         try:
-            cursor.execute("select contact_id, contact_first_name, contact_last_name, contact_middle_name from "
-                           "contact_list")
+            cursor.execute("select id, firstname, lastname from addressbook where deprecated='0000-00-00 00:00:00'")
             for row in cursor:
-                (id, first_name, last_name, middle_name) = row
-                list.append(Contact(id=str(id), first_name=first_name, last_name=last_name, middle_name=middle_name))
+                (id, firstname, lastname) = row
+                list.append(Contact(id=str(id), first_name=firstname, last_name=lastname))
         finally:
             cursor.close()
         return list
